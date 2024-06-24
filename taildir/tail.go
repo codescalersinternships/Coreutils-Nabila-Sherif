@@ -7,6 +7,11 @@ import (
 	"strings"
 )
 
+func check(e error) {
+	if e != nil {
+		panic((e))
+	}
+}
 func main() {
 	nPtr := flag.Int("n", 10, "an int")
 	flag.Parse()
@@ -14,7 +19,8 @@ func main() {
 	if strings.Contains(arg, "-") {
 		arg = os.Args[2]
 	}
-	data, _ := os.ReadFile(arg)
+	data, err := os.ReadFile(arg)
+	check(err)
 	var s []string
 	i := 0
 	s = strings.Split(string(data), "\n")
