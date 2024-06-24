@@ -8,6 +8,11 @@ import (
 	"unicode/utf8"
 )
 
+func check(e error) {
+	if e != nil {
+		panic((e))
+	}
+}
 func main() {
 	args := os.Args[1:]
 	var flagL, flagW, flagC bool = false, false, false
@@ -22,7 +27,8 @@ func main() {
 		flagC = true
 	}
 	var s []string
-	data, _ := os.ReadFile(args[len(args)-1])
+	data, err := os.ReadFile(args[len(args)-1])
+	check(err)
 	s = strings.Split(string(data), "\n")
 	l := len(s)
 	if flagL {
