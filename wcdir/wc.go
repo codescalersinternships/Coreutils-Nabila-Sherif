@@ -11,6 +11,7 @@ import (
 func main() {
 	args := os.Args[1:]
 	var flagL, flagW, flagC bool = false, false, false
+
 	if slices.Contains(args, "-l") {
 		flagL = true
 	}
