@@ -7,10 +7,11 @@ the default if to print the 1st 10 lines but if -n flag is present then print th
 ### 2. tail
 same as head but the last 10 or n lines
 ### 3. cat
-reads a file and prints its content
+reads a file and prints its content.
+if flag -n is used then print only the number of lines indicated 
 ### 4. echo
 given a string passed as command line arguments , the string is printed
-If the -n flag is present, it add a newline at the end.
+If the -n flag is present, it doesn't add a newline at the end.
 ### 5. true
 do nothing, successfuly
 ### 6. false
@@ -21,3 +22,4 @@ display the current environment
 the func counts the number of lines, words and characters and prints the count depending on whether flags -l, -w, and -c are present respectively 
 ### 9. tree
 reading a directory and depending on the depth passed(1 or 2) print the up to the depth indicated
+depth and path of directory are passed as command line arguments.
