@@ -3,28 +3,29 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
 
 func check(e error) {
 	if e != nil {
-		panic((e))
+		log.Fatal(e)
 	}
 }
 func main() {
-	nPtr := flag.Int("n", 10, "an int")
+	var nvar int
+	flag.IntVar(&nvar, "n", 10, "an int var")
 	flag.Parse()
-	arg := os.Args[1]
-	if strings.Contains(arg, "-") {
-		arg = os.Args[2]
+	if len(flag.Args()) == 0 {
+		log.Fatal("need file path")
 	}
-	data, err := os.ReadFile(arg)
+	filepath := flag.Args()[0]
+	data, err := os.ReadFile(filepath)
 	check(err)
-	var s []string
 	i := 0
-	s = strings.Split(string(data), "\n")
-	for j := len(s) - 1; j >= 0 && i < *nPtr; j-- {
+	s := strings.Split(string(data), "\n")
+	for j := len(s) - 1; j >= 0 && i < nvar; j-- {
 		if s[j] != "" {
 			fmt.Println(s[j])
 		} else {

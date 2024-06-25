@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"slices"
 	"strings"
@@ -10,7 +11,7 @@ import (
 
 func check(e error) {
 	if e != nil {
-		panic((e))
+		log.Fatal(e)
 	}
 }
 func main() {
