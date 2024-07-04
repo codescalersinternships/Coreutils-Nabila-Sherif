@@ -15,24 +15,17 @@ func check(e error) {
 }
 func main() {
 	if len(os.Args) > 1 {
-		var nvar int
-		file := os.Args[1]
-		printSpecificNum := false
-		flag.IntVar(&nvar, "n", 10, "an int var")
+		var outputlines bool
+		flag.BoolVar(&outputlines, "n", false, "a bool for output lines")
 		flag.Parse()
-		if strings.Contains(os.Args[1], "-n") {
-			file = os.Args[2]
-			printSpecificNum = true
-		}
-		data, e := os.ReadFile(file)
+		filepath := flag.Args()[0]
+		data, e := os.ReadFile(filepath)
 		check(e)
 		s := strings.Split(string(data), "\n")
-		if printSpecificNum {
-			for j := 0; j < len(s) && j < nvar; j++ {
-				fmt.Println(s[j])
-			}
-		} else {
-			for _, str := range s {
+		for i, str := range s {
+			if outputlines {
+				fmt.Println(i, " ", str)
+			} else {
 				fmt.Println((str))
 			}
 		}

@@ -1,21 +1,18 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"os"
 )
 
 func main() {
-	showNewLine := true
-	args := os.Args[1:]
-	if args[0] == "-n" {
-		showNewLine = false
-		args = args[1:]
-	}
-	for _, arg := range args {
+	var showNewLine bool
+	flag.BoolVar(&showNewLine, "n", false, "a bool for showing new line")
+	flag.Parse()
+	for _, arg := range flag.Args() {
 		fmt.Print(arg, " ")
 	}
-	if showNewLine {
+	if !showNewLine {
 		fmt.Println()
 	}
 }

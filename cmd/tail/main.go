@@ -15,7 +15,7 @@ func check(e error) {
 }
 func main() {
 	var nvar int
-	flag.IntVar(&nvar, "n", 10, "an int var")
+	flag.IntVar(&nvar, "n", 10, "for indicating specific number of output lines")
 	flag.Parse()
 	if len(flag.Args()) == 0 {
 		log.Fatal("need file path")
@@ -26,11 +26,7 @@ func main() {
 	i := 0
 	s := strings.Split(string(data), "\n")
 	for j := len(s) - 1; j >= 0 && i < nvar; j-- {
-		if s[j] != "" {
-			fmt.Println(s[j])
-		} else {
-			os.Exit(0)
-		}
+		fmt.Println(s[j])
 		i++
 	}
 }
