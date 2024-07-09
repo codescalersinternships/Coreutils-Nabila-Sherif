@@ -15,20 +15,20 @@ func check(e error) {
 }
 func main() {
 	var nvar int
-	flag.IntVar(&nvar, "n", 10, "an int var")
+	flag.IntVar(&nvar, "n", 10, "for indicating specific number of output lines")
 	flag.Parse()
-	arg := os.Args[1]
-	if strings.Contains(arg, "-n") {
-		arg = os.Args[2]
+	if len(flag.Args()) == 0 {
+		log.Fatal("need file path")
 	}
-	data, e := os.ReadFile(arg)
-	check(e)
+	filepath := flag.Args()[0]
+	data, err := os.ReadFile(filepath)
+	check(err)
 	s := strings.Split(string(data), "\n")
-	for j := 0; j < len(s) && j < nvar; j++ {
-		if s[j] != "" {
-			fmt.Println(s[j])
+	for i, line := range s {
+		if i < nvar {
+			fmt.Println(line)
 		} else {
-			os.Exit(0)
+			break
 		}
 	}
 }

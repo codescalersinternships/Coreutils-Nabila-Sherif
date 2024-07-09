@@ -1,10 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
-	"slices"
 	"strings"
 	"unicode/utf8"
 )
@@ -15,35 +15,32 @@ func check(e error) {
 	}
 }
 func main() {
-	args := os.Args[1:]
-	var flagL, flagW, flagC bool = false, false, false
-
-	if slices.Contains(args, "-l") {
-		flagL = true
-	}
-	if slices.Contains(args, "-w") {
-		flagW = true
-	}
-	if slices.Contains(args, "-c") {
-		flagC = true
-	}
+	var flagL bool
+	flag.BoolVar(&flagL, "l", false, "a bool for output lines")
+	var flagW bool
+	flag.BoolVar(&flagW, "w", false, "a bool for output lines")
+	var flagC bool
+	flag.BoolVar(&flagC, "c", false, "a bool for output lines")
+	flag.Parse()
+	filepath := flag.Args()[0]
 	var s []string
-	data, err := os.ReadFile(args[len(args)-1])
+	data, err := os.ReadFile(filepath)
 	check(err)
 	s = strings.Split(string(data), "\n")
 	l := len(s)
-	if flagL {
-		fmt.Println("lines : ", l)
+	if flagL || (!flagL && !flagC && !flagW) {
+		fmt.Print(l, " ")
 	}
-	if flagW {
+	if flagW || (!flagL && !flagC && !flagW) {
 		w := 0
 		for j := 0; j < len(s); j++ {
 			w += len(strings.Split(s[j], " "))
 		}
-		fmt.Println("words : ", w)
+		fmt.Print(w, " ")
 	}
-	if flagC {
+	if flagC || (!flagL && !flagC && !flagW) {
 		c := utf8.RuneCountInString(string(data))
-		fmt.Println("Characters : ", c)
+		fmt.Println(c, " ")
 	}
+	fmt.Print(filepath)
 }
